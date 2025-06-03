@@ -1,14 +1,21 @@
-const mysql = require('mysql2/promise');
-const config = require('../config');
+// app.js
+const express = require('express');
+const app = express();
+const cors = require('cors');
+require('dotenv').config();
+require('./db'); // this will print DB connection status
 
-const pool = mysql.createPool({
-  host: config.db.host,
-  user: config.db.user,
-  password: config.db.password,
-  database: config.db.database,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/users', require('./routes/user.routes'));
+
+// Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
 
-module.exports = pool;
+
