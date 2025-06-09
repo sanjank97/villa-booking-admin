@@ -5,6 +5,14 @@ exports.getAllVillas = async () => {
   return rows;
 };
 
+exports.getVillasbyId = async (id) => {
+  const [rows] = await db.query('SELECT * FROM villas where id = ?', [id]);
+  if (rows.length === 0) {  
+    throw new Error('Villa not found');
+  }
+  return rows;
+};
+
 exports.createVilla = async (villa) => {
   const { name, location, price, description } = villa;
   const [result] = await db.query(

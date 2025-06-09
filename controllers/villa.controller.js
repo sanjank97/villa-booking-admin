@@ -9,6 +9,16 @@ exports.getVillas = async (req, res) => {
   }
 };
 
+
+exports.getVillasbyId = async (req, res) => {
+  try {
+    const villas = await villaModel.getVillasbyId(req.params.id);
+    res.json(villas);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.addVilla = async (req, res) => {
   try {
     const villaId = await villaModel.createVilla(req.body);
@@ -19,6 +29,9 @@ exports.addVilla = async (req, res) => {
 };
 
 exports.editVilla = async (req, res) => {
+
+  
+
   try {
     await villaModel.updateVilla(req.params.id, req.body);
     res.json({ message: 'Villa updated' });
