@@ -76,3 +76,13 @@ exports.getBookedDatesForVilla = async (req, res) => {
     res.status(500).json({ message: 'Error fetching booked dates', error: err.message });
   }
 };
+
+
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await bookingModel.getAllBookings();
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: 'Error retrieving all bookings', error: err.message });
+  }
+};

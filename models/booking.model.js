@@ -28,3 +28,14 @@ exports.getBookingsForVilla = async (villa_id) => {
   );
   return rows;
 };
+
+exports.getAllBookings = async () => {
+  const [rows] = await db.query(
+    `SELECT b.*, v.name as villa_name, v.location, u.name as user_name, u.email
+     FROM bookings b
+     JOIN villas v ON b.villa_id = v.id
+     JOIN users u ON b.user_id = u.id
+     ORDER BY b.created_at DESC`
+  );
+  return rows;
+};
