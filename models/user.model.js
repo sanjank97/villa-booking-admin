@@ -1,6 +1,11 @@
 const db = require('../db');
 const bcrypt = require('bcryptjs');
 
+exports.getAllUsers = async () => {
+  const [rows] = await db.query('SELECT * FROM users');
+  return rows;
+};
+
 // Make sure getUserByEmail is defined properly in this file or imported
 exports.getUserByEmail = async (email) => {
   const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
