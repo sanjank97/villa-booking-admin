@@ -39,3 +39,9 @@ exports.getAllBookings = async () => {
   );
   return rows;
 };
+
+
+exports.updateBookingStatus = async (bookingId, status) => {
+  const sql = 'UPDATE bookings SET status = ? WHERE id = ?';
+  await db.query(sql, [status, bookingId]);
+};
