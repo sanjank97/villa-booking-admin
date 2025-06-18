@@ -2,3 +2,10 @@ key id : rzp_test_iyo2xuccNd7DP7
 secret id : h0ZvUTH0nXKsUPaAU7BRLrjY
 
 https://x.razorpay.com/settings/developer-controls
+
+
+
+Checkout (end date )- should not count - priority.
+lock booking villa - if booking status confirm and status pending the 10 minute with current time.
+
+if user dismiss payment dialog box then update booking status rejected.

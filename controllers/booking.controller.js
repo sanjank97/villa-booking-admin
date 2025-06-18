@@ -49,6 +49,7 @@ exports.getBookedDatesForVilla = async (req, res) => {
   try {
     const bookings = await bookingModel.getBookingsForVilla(villa_id);
 
+ 
     const allDates = bookings.flatMap(({ start_date, end_date }) => {
       const dates = [];
       let current = new Date(start_date);
@@ -86,3 +87,18 @@ exports.getAllBookings = async (req, res) => {
     res.status(500).json({ message: 'Error retrieving all bookings', error: err.message });
   }
 };
+
+exports.getBookingById = async (req, res) => {
+  const booking_id = req.params.booking_id;
+  try {
+    const booking = await bookingModel.getBookingById(booking_id);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+    res.json(booking);
+  } catch (err) {
+    res.status(500).json({ message: 'Error retrieving booking', error: err.message });
+  }
+};
+
+

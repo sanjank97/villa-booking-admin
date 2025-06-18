@@ -41,7 +41,6 @@ exports.createPayment = async (req, res) => {
 
 
 
-
 exports.verifyPayment = async (req, res) => {
   const {
     razorpay_order_id,
@@ -63,16 +62,14 @@ exports.verifyPayment = async (req, res) => {
 
   try {
     // 1. Save payment details
-    await paymentModel.savePayment({
-      booking_id,
-      razorpay_order_id,
-      razorpay_payment_id,
-      amount,
-      status: 'success',
+    await paymentModel.updatePaymentStatus({
+      order_id: razorpay_order_id,
+      payment_id: razorpay_payment_id,
+      status: 'paid',
     });
 
     // 2. Update booking status
-    await bookingModel.updateBookingStatus(booking_id, 'confirmed');
+    await bookingModel.updateBookingStatus(booking_id, 'approved');
 
     res.status(200).json({ message: 'Payment verified and booking confirmed' });
   } catch (err) {
